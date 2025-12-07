@@ -1,0 +1,68 @@
+ADD_SUB_RESERVATION_STATIONS 3
+MUL_DIV_RESERVATION_STATIONS 2
+LOAD_BUFFERS 2
+STORE_BUFFERS 2
+
+ADD_SUB_CYCLES 2
+MUL_CYCLES 5
+DIV_CYCLES 8
+LOAD_STORE_CYCLES 3
+
+REG 8
+
+# Initial registers
+INIT_REG F0 0      # base
+INIT_REG F1 10
+INIT_REG F2 20
+INIT_REG F3 0
+INIT_REG F4 0
+INIT_REG F5 0
+INIT_REG F6 0
+INIT_REG F7 0
+
+# Initial memory
+INIT_MEM 0  1.5
+INIT_MEM 4  2.5
+INIT_MEM 8  3.5
+INIT_MEM 12 0.0
+INIT_MEM 16 0.0
+
+# 12 instructions
+12
+
+# 0: F3 = MEM[0] = 1.5
+LOAD F3 F0 0
+
+# 1: F4 = MEM[4] = 2.5
+LOAD F4 F0 4
+
+# 2: F5 = F3 + F4 = 4.0
+ADD  F5 F3 F4
+
+# 3: BEQ F1,F2,+2 -> NOT taken (10 != 20), fallthrough
+BEQ  F1 F2 2
+
+# 4: F6 = F2 - F1 = 10
+SUB  F6 F2 F1
+
+# 5: MEM[8] = F6 = 10
+STORE F6 F0 8
+
+# 6: BNEQ F1,F2,+2 -> TAKEN (10 != 20) -> skip 7 & 8
+BNEQ F1 F2 2
+
+# 7: (skipped dynamically if branch taken) F5 = F5 + F3
+ADD  F5 F5 F3
+
+# 8: (skipped dynamically if branch taken) MEM[12] = F5
+STORE F5 F0 12
+
+# 9: F7 = F2 / F1 = 2
+DIV  F7 F2 F1
+
+# 10: MEM[16] = F7 = 2
+STORE F7 F0 16
+
+# 11: F6 = F6 + F7 = 12
+ADD  F6 F6 F7
+
