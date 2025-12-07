@@ -1,3 +1,9 @@
+// This file is derived from code originally written by
+// (Copyright (c) 2019 Saad Farooq) and has been modified and extended
+// by Rajeshwar Reddy Vemula (Copyright (c) 2025).
+//
+// Both the original code and these modifications are licensed under the
+// MIT License. See the LICENSE file in this repository for full details.
 // ============================================================================
 // Tomasulo Simulator with three models:
 //
